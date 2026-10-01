@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Q2 - Protected Route 2: Profile</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; }
+        .nav { margin-bottom: 20px; }
+        .nav a { margin-right: 15px; font-weight: bold; text-decoration: none; color: #0066cc; }
+        table { border-collapse: collapse; width: 600px; }
+        th, td { padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; width: 35%; }
+        .btn-logout { background-color: #d9534f; color: white; padding: 5px 10px; border-radius: 3px; text-decoration: none; }
+        .storage-box { background-color: #fffde7; border: 1px solid #ffd54f; padding: 10px; width: 580px; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+    <h2>Protected Route 2: User Profile</h2>
+
+    <div class="nav">
+        <a href="/dashboard">Dashboard (Protected 1)</a> |
+        <a href="/profile">Profile Details (Protected 2)</a> |
+        <a href="/logout" class="btn-logout">Logout</a>
+    </div>
+
+    <table border="1">
+        <tr>
+            <th>User Account</th>
+            <td><%= user.username %></td>
+        </tr>
+        <tr>
+            <th>Full Name</th>
+            <td><%= user.fullName %></td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td><%= user.email %></td>
+        </tr>
+        <tr>
+            <th>Role</th>
+            <td><%= user.role %></td>
+        </tr>
+        <tr>
+            <th>Active Session ID</th>
+            <td><code><%= sessionId %></code></td>
+        </tr>
+    </table>
+
+    <div class="storage-box">
+        <strong>File Session Store Information:</strong>
+        <p>The session file for this login is physically saved on the disk in:<br>
+        <code><%= sessionStorePath %>/<%= sessionId %>.json</code></p>
+        <p>Even if the server restarts or memory is cleared, this session persists because it is stored in a JSON file on the disk!</p>
+    </div>
+
+</body>
+</html>

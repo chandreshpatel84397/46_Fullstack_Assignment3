@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Q3 - Protected Route 1: Redis Session Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; }
+        .nav { margin-bottom: 20px; }
+        .nav a { margin-right: 15px; font-weight: bold; text-decoration: none; color: #0066cc; }
+        table { border-collapse: collapse; width: 620px; }
+        th, td { padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; width: 35%; }
+        .btn-logout { background-color: #d9534f; color: white; padding: 5px 10px; border-radius: 3px; text-decoration: none; }
+        .badge { background: #e0f2fe; color: #0369a1; padding: 3px 6px; border-radius: 4px; font-family: monospace; }
+    </style>
+</head>
+<body>
+
+    <h2>Protected Route 1: Redis Dashboard</h2>
+
+    <div class="nav">
+        <a href="/dashboard">Dashboard (Protected 1)</a> |
+        <a href="/reports">Redis Session Inspection (Protected 2)</a> |
+        <a href="/logout" class="btn-logout">Logout</a>
+    </div>
+
+    <p style="color: green;"><strong>Authentication Status:</strong> Active Redis-backed Session</p>
+
+    <table border="1">
+        <tr>
+            <th>Username</th>
+            <td><%= user.username %></td>
+        </tr>
+        <tr>
+            <th>Full Name</th>
+            <td><%= user.fullName %></td>
+        </tr>
+        <tr>
+            <th>Role</th>
+            <td><%= user.role %></td>
+        </tr>
+        <tr>
+            <th>Login Time</th>
+            <td><%= user.loggedInAt %></td>
+        </tr>
+        <tr>
+            <th>Session ID (Cookie)</th>
+            <td><code><%= sessionId %></code></td>
+        </tr>
+        <tr>
+            <th>Redis Storage Key</th>
+            <td><span class="badge"><%= redisKey %></span></td>
+        </tr>
+        <tr>
+            <th>Redis Engine Status</th>
+            <td><%= redisMode %></td>
+        </tr>
+        <tr>
+            <th>Page Views (In Redis)</th>
+            <td><%= pageViews %> times</td>
+        </tr>
+    </table>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Q3 - Protected Route 2: Redis Session Inspection</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; }
+        .nav { margin-bottom: 20px; }
+        .nav a { margin-right: 15px; font-weight: bold; text-decoration: none; color: #0066cc; }
+        table { border-collapse: collapse; width: 680px; }
+        th, td { padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; width: 30%; }
+        .btn-logout { background-color: #d9534f; color: white; padding: 5px 10px; border-radius: 3px; text-decoration: none; }
+        pre { background: #272822; color: #f8f8f2; padding: 12px; border-radius: 4px; overflow-x: auto; width: 650px; }
+    </style>
+</head>
+<body>
+
+    <h2>Protected Route 2: Redis Session Store Inspection</h2>
+
+    <div class="nav">
+        <a href="/dashboard">Dashboard (Protected 1)</a> |
+        <a href="/reports">Redis Session Inspection (Protected 2)</a> |
+        <a href="/logout" class="btn-logout">Logout</a>
+    </div>
+
+    <table border="1">
+        <tr>
+            <th>User Account</th>
+            <td><%= user.username %> (<%= user.fullName %>)</td>
+        </tr>
+        <tr>
+            <th>Session Cookie ID</th>
+            <td><code><%= sessionId %></code></td>
+        </tr>
+        <tr>
+            <th>Key Queried in Redis</th>
+            <td><code><%= redisKey %></code></td>
+        </tr>
+        <tr>
+            <th>Redis Engine</th>
+            <td><%= redisMode %></td>
+        </tr>
+    </table>
+
+    <h3>Raw JSON Data Stored in Redis:</h3>
+    <pre><%= rawRedisData ? JSON.stringify(JSON.parse(rawRedisData), null, 2) : 'No data retrieved' %></pre>
+
+    <p><small>* Note: This demonstrates that session data is stored remotely/in-memory in Redis key-value store rather than application RAM or local disk files.</small></p>
+
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Q6 - Free API Utilities (Frontend & Backend)</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; }
+        .section-card { border: 1px solid #ccc; padding: 18px; margin-bottom: 25px; border-radius: 4px; }
+        .backend-card { border-left: 5px solid #28a745; background-color: #fcfcfc; }
+        .frontend-card { border-left: 5px solid #007bff; background-color: #fcfcfc; }
+        table { border-collapse: collapse; width: 620px; margin-top: 12px; }
+        th, td { padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; width: 40%; }
+        input[type="number"], select { padding: 6px; }
+        button { padding: 7px 14px; cursor: pointer; border-radius: 3px; }
+        .btn-backend { background-color: #28a745; color: white; border: none; }
+        .btn-frontend { background-color: #007bff; color: white; border: none; }
+        .code-note { background-color: #f8f9fa; border: 1px dashed #6c757d; padding: 10px; margin-top: 10px; font-size: 13px; }
+    </style>
+</head>
+<body>
+
+    <h2>Question 6: Free API Utilities Demonstration</h2>
+    <p>This application demonstrates consuming free public APIs from <strong>both the Backend (Node.js/Express)</strong> and the <strong>Frontend (Browser JavaScript)</strong>.</p>
+
+    <!-- ============================================================== -->
+    <!-- 1. BACKEND API UTILITY: LIVE CURRENCY CONVERTER -->
+    <!-- ============================================================== -->
+    <div class="section-card backend-card">
+        <h3>1. Utility from BACKEND: Live Currency Converter</h3>
+        <p><strong>How it works:</strong> The browser sends a request to the Express server route (<code>/api/currency-convert</code>). The Express backend uses <code>axios</code> to call the free <em>Open Exchange Rates API</em>, calculates the converted amount, and returns the result to the user.</p>
+
+        <form id="currencyForm" onsubmit="handleBackendCurrency(event)">
+            <table border="1">
+                <tr>
+                    <td><label for="amount">Amount to Convert:</label></td>
+                    <td><input type="number" id="amount" value="100" min="1" step="any" required></td>
+                </tr>
+                <tr>
+                    <td><label for="baseCurrency">From Currency (Base):</label></td>
+                    <td>
+                        <select id="baseCurrency">
+                            <option value="USD" selected>USD - US Dollar</option>
+                            <option value="EUR">EUR - Euro</option>
+                            <option value="GBP">GBP - British Pound</option>
+                            <option value="INR">INR - Indian Rupee</option>
+                            <option value="JPY">JPY - Japanese Yen</option>
+                            <option value="CAD">CAD - Canadian Dollar</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="targetCurrency">To Currency (Target):</label></td>
+                    <td>
+                        <select id="targetCurrency">
+                            <option value="INR" selected>INR - Indian Rupee</option>
+                            <option value="USD">USD - US Dollar</option>
+                            <option value="EUR">EUR - Euro</option>
+                            <option value="GBP">GBP - British Pound</option>
+                            <option value="JPY">JPY - Japanese Yen</option>
+                            <option value="AED">AED - UAE Dirham</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <button type="submit" class="btn-backend">Convert via Backend API</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+        <div id="currencyResult" style="display: none; margin-top: 15px;">
+            <h4>Conversion Result (Computed by Express Backend):</h4>
+            <table border="1">
+                <tr>
+                    <th>Original Amount</th>
+                    <td id="resOriginal"></td>
+                </tr>
+                <tr>
+                    <th>Exchange Rate</th>
+                    <td id="resRate"></td>
+                </tr>
+                <tr>
+                    <th>Converted Amount</th>
+                    <td><strong id="resConverted" style="color: #28a745; font-size: 16px;"></strong></td>
+                </tr>
+                <tr>
+                    <th>Data Provider</th>
+                    <td id="resProvider"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- 2. FRONTEND API UTILITY: LIVE WEATHER & JOKES -->
+    <!-- ============================================================== -->
+    <div class="section-card frontend-card">
+        <h3>2. Utility from FRONTEND: Live City Weather Forecast</h3>
+        <p><strong>How it works:</strong> The browser executes client-side JavaScript <code>fetch()</code> directly to the free <em>Open-Meteo Weather API</em> (no server hop, 100% client-side).</p>
+
+        <form id="weatherForm" onsubmit="handleFrontendWeather(event)">
+            <table border="1">
+                <tr>
+                    <td><label for="citySelect">Select City:</label></td>
+                    <td>
+                        <select id="citySelect">
+                            <option value="19.0760,72.8777" selected>Mumbai (India)</option>
+                            <option value="28.6139,77.2090">New Delhi (India)</option>
+                            <option value="51.5074,-0.1278">London (UK)</option>
+                            <option value="40.7128,-74.0060">New York (USA)</option>
+                            <option value="35.6762,139.6503">Tokyo (Japan)</option>
+                            <option value="-33.8688,151.2093">Sydney (Australia)</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <button type="submit" class="btn-frontend">Fetch Weather via Frontend API</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+        <div id="weatherResult" style="display: none; margin-top: 15px;">
+            <h4>Current Weather Details (Direct Browser Fetch):</h4>
+            <table border="1">
+                <tr>
+                    <th>City Selected</th>
+                    <td id="weatherCity"></td>
+                </tr>
+                <tr>
+                    <th>Current Temperature</th>
+                    <td><strong id="weatherTemp" style="color: #007bff; font-size: 16px;"></strong></td>
+                </tr>
+                <tr>
+                    <th>Wind Speed</th>
+                    <td id="weatherWind"></td>
+                </tr>
+                <tr>
+                    <th>Time of Observation</th>
+                    <td id="weatherTime"></td>
+                </tr>
+            </table>
+        </div>
+
+        <br>
+        <h4>Bonus Frontend Utility: Random Joke API</h4>
+        <button type="button" class="btn-frontend" onclick="fetchRandomJoke()">Fetch Random Joke via Frontend API</button>
+        <div id="jokeResult" style="margin-top: 10px; font-style: italic; color: #333;"></div>
+    </div>
+
+    <!-- Client-side JavaScript -->
+    <script>
+        // 1. Call Backend API
+        async function handleBackendCurrency(e) {
+            e.preventDefault();
+            const amount = document.getElementById('amount').value;
+            const base = document.getElementById('baseCurrency').value;
+            const target = document.getElementById('targetCurrency').value;
+
+            try {
+                const response = await fetch(`/api/currency-convert?amount=${amount}&base=${base}&target=${target}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    document.getElementById('resOriginal').innerText = `${data.amount} ${data.base}`;
+                    document.getElementById('resRate').innerText = `1 ${data.base} = ${data.rate} ${data.target}`;
+                    document.getElementById('resConverted').innerText = `${data.converted} ${data.target}`;
+                    document.getElementById('resProvider').innerText = data.provider + ` (Updated: ${data.lastUpdated})`;
+                    document.getElementById('currencyResult').style.display = 'block';
+                } else {
+                    alert('Backend error: ' + (data.error || 'Failed to convert'));
+                }
+            } catch (err) {
+                alert('Request failed: ' + err.message);
+            }
+        }
+
+        // 2. Call Frontend API (Open-Meteo)
+        async function handleFrontendWeather(e) {
+            e.preventDefault();
+            const select = document.getElementById('citySelect');
+            const cityName = select.options[select.selectedIndex].text;
+            const [lat, lon] = select.value.split(',');
+
+            const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`;
+
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                if (data.current_weather) {
+                    document.getElementById('weatherCity').innerText = cityName;
+                    document.getElementById('weatherTemp').innerText = `${data.current_weather.temperature} °C`;
+                    document.getElementById('weatherWind').innerText = `${data.current_weather.windspeed} km/h`;
+                    document.getElementById('weatherTime').innerText = data.current_weather.time;
+                    document.getElementById('weatherResult').style.display = 'block';
+                }
+            } catch (err) {
+                alert('Frontend API error: ' + err.message);
+            }
+        }
+
+        // 3. Bonus Joke API (Direct Frontend)
+        async function fetchRandomJoke() {
+            const jokeDiv = document.getElementById('jokeResult');
+            jokeDiv.innerText = 'Fetching joke...';
+            try {
+                const res = await fetch('https://official-joke-api.appspot.com/random_joke');
+                const data = await res.json();
+                jokeDiv.innerHTML = `<strong>Setup:</strong> ${data.setup}<br><strong>Punchline:</strong> ${data.punchline}`;
+            } catch (err) {
+                jokeDiv.innerText = 'Failed to load joke.';
+            }
+        }
+    </script>
+
+</body>
+</html>

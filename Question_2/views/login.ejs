@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Q2 - Login (File Session Store)</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; }
+        .alert-error { background-color: #ffebee; border: 1px solid #d32f2f; color: #d32f2f; padding: 10px; margin-bottom: 15px; width: 400px; }
+        table { border-collapse: collapse; width: 420px; }
+        td { padding: 8px; }
+        input[type="text"], input[type="password"] { width: 90%; padding: 6px; }
+        .demo-box { background-color: #e8f4fd; border: 1px solid #2196f3; padding: 10px; width: 400px; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+    <h2>Login Application (File Session Store)</h2>
+
+    <% if (errorMessage) { %>
+        <div class="alert-error">
+            <%= errorMessage %>
+        </div>
+    <% } %>
+
+    <form action="/login" method="POST">
+        <table border="1">
+            <tr>
+                <td><label for="username">Username:</label></td>
+                <td><input type="text" id="username" name="username" required></td>
+            </tr>
+            <tr>
+                <td><label for="password">Password:</label></td>
+                <td><input type="password" id="password" name="password" required></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <button type="submit" style="padding: 6px 16px; cursor: pointer;">Login</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <div class="demo-box">
+        <strong>Demo Credentials:</strong><br>
+        1. Username: <code>admin</code> | Password: <code>password123</code><br>
+        2. Username: <code>student</code> | Password: <code>student123</code>
+    </div>
+
+</body>
+</html>

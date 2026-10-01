@@ -1,0 +1,14 @@
+{
+  "name": "question-6-free-api-utility",
+  "version": "1.0.0",
+  "description": "Calling free APIs for useful utilities from both Frontend and Backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "axios": "^1.7.9",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2"
+  }
+}

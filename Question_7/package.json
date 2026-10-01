@@ -1,0 +1,16 @@
+{
+  "name": "question-7-mern-shopping-cart",
+  "version": "1.0.0",
+  "description": "Shopping Cart with Admin and User sites, 2-level categories, and Products using MERN stack",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build:client": "npm --prefix client install && npm --prefix client run build",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.2"
+  }
+}

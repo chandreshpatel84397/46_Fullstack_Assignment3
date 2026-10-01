@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Q4 - Edit Employee</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; }
+        table { border-collapse: collapse; width: 620px; }
+        td { padding: 8px; vertical-align: top; }
+        input[type="text"], input[type="email"], input[type="number"], select { width: 92%; padding: 6px; }
+        .alert-error { background-color: #ffebee; border: 1px solid #d32f2f; color: #d32f2f; padding: 10px; margin-bottom: 15px; width: 600px; }
+        .btn-submit { background-color: #007bff; color: white; padding: 8px 16px; border: none; cursor: pointer; border-radius: 3px; }
+        .btn-cancel { color: #666; text-decoration: none; margin-left: 10px; }
+    </style>
+</head>
+<body>
+
+    <h2>Edit Employee: <%= employee.name %> (<%= employee.empid %>)</h2>
+
+    <% if (error) { %>
+        <div class="alert-error"><%= error %></div>
+    <% } %>
+
+    <form action="/employees/edit/<%= employee._id %>" method="POST">
+        <table border="1">
+            <tr>
+                <td>Employee ID:</td>
+                <td><input type="text" value="<%= employee.empid %>" readonly disabled style="background-color: #f0f0f0;"></td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td><input type="text" value="<%= employee.email %>" readonly disabled style="background-color: #f0f0f0;"></td>
+            </tr>
+            <tr>
+                <td><label for="name">Employee Full Name:</label></td>
+                <td><input type="text" id="name" name="name" value="<%= employee.name %>" required></td>
+            </tr>
+            <tr>
+                <td><label for="department">Department:</label></td>
+                <td>
+                    <select id="department" name="department" required>
+                        <option value="Information Technology" <%= (employee.department === 'Information Technology') ? 'selected' : '' %>>Information Technology</option>
+                        <option value="Human Resources" <%= (employee.department === 'Human Resources') ? 'selected' : '' %>>Human Resources</option>
+                        <option value="Finance" <%= (employee.department === 'Finance') ? 'selected' : '' %>>Finance</option>
+                        <option value="Marketing" <%= (employee.department === 'Marketing') ? 'selected' : '' %>>Marketing</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="designation">Designation:</label></td>
+                <td><input type="text" id="designation" name="designation" value="<%= employee.designation %>" required></td>
+            </tr>
+            <tr>
+                <td><label for="basicSalary">Basic Salary ($):</label></td>
+                <td><input type="number" id="basicSalary" name="basicSalary" value="<%= employee.basicSalary %>" min="0" oninput="updateNetSalary()" required></td>
+            </tr>
+            <tr>
+                <td><label for="allowances">Allowances ($):</label></td>
+                <td><input type="number" id="allowances" name="allowances" value="<%= employee.allowances %>" min="0" oninput="updateNetSalary()" required></td>
+            </tr>
+            <tr>
+                <td><label for="deductions">Deductions ($):</label></td>
+                <td><input type="number" id="deductions" name="deductions" value="<%= employee.deductions %>" min="0" oninput="updateNetSalary()" required></td>
+            </tr>
+            <tr>
+                <td><strong>Updated Net Salary:</strong></td>
+                <td>
+                    <span id="previewNetSalary" style="font-weight: bold; font-size: 16px; color: #2e7d32;">$<%= employee.netSalary %></span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <button type="submit" class="btn-submit">Update Employee Details</button>
+                    <a href="/employees" class="btn-cancel">Cancel</a>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <script>
+        function updateNetSalary() {
+            const basic = parseFloat(document.getElementById('basicSalary').value) || 0;
+            const allow = parseFloat(document.getElementById('allowances').value) || 0;
+            const deduct = parseFloat(document.getElementById('deductions').value) || 0;
+            const net = basic + allow - deduct;
+            document.getElementById('previewNetSalary').innerText = '$' + net;
+        }
+    </script>
+
+</body>
+</html>

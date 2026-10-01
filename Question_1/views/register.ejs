@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Q1 - User Registration Form</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; }
+        .error-box { background-color: #ffebee; border: 1px solid #d32f2f; color: #d32f2f; padding: 10px; margin-bottom: 20px; }
+        table { border-collapse: collapse; width: 650px; }
+        td { padding: 8px; vertical-align: top; }
+        input[type="text"], input[type="email"], input[type="password"] { width: 90%; padding: 6px; }
+        .btn { padding: 8px 16px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <h2>User Registration Form</h2>
+    <p>Please fill out the form below. All fields are required.</p>
+
+    <!-- Error message display -->
+    <% if (errors && errors.length > 0) { %>
+        <div class="error-box">
+            <strong>Errors found:</strong>
+            <ul>
+                <% errors.forEach(function(err) { %>
+                    <li><%= err.msg %></li>
+                <% }); %>
+            </ul>
+        </div>
+    <% } %>
+
+    <!-- Registration Form (enctype multipart/form-data for file uploads) -->
+    <form action="/register" method="POST" enctype="multipart/form-data">
+        <table border="1">
+            <tr>
+                <td><label for="username">Username:</label></td>
+                <td>
+                    <input type="text" id="username" name="username" value="<%= oldData.username || '' %>">
+                </td>
+            </tr>
+
+            <tr>
+                <td><label for="email">Email Address:</label></td>
+                <td>
+                    <input type="email" id="email" name="email" value="<%= oldData.email || '' %>">
+                </td>
+            </tr>
+
+            <tr>
+                <td><label for="password">Password:</label></td>
+                <td>
+                    <input type="password" id="password" name="password" value="<%= oldData.password || '' %>">
+                </td>
+            </tr>
+
+            <tr>
+                <td><label for="confirmPassword">Confirm Password:</label></td>
+                <td>
+                    <input type="password" id="confirmPassword" name="confirmPassword" value="<%= oldData.confirmPassword || '' %>">
+                </td>
+            </tr>
+
+            <tr>
+                <td>Gender:</td>
+                <td>
+                    <label>
+                        <input type="radio" name="gender" value="Male" <%= (oldData.gender === 'Male') ? 'checked' : '' %>> Male
+                    </label>
+                    &nbsp;&nbsp;
+                    <label>
+                        <input type="radio" name="gender" value="Female" <%= (oldData.gender === 'Female') ? 'checked' : '' %>> Female
+                    </label>
+                    &nbsp;&nbsp;
+                    <label>
+                        <input type="radio" name="gender" value="Other" <%= (oldData.gender === 'Other') ? 'checked' : '' %>> Other
+                    </label>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Hobbies:</td>
+                <td>
+                    <% 
+                       const userHobbies = oldData.hobbies || []; 
+                    %>
+                    <label>
+                        <input type="checkbox" name="hobbies" value="Reading" <%= userHobbies.includes('Reading') ? 'checked' : '' %>> Reading
+                    </label><br>
+                    <label>
+                        <input type="checkbox" name="hobbies" value="Music" <%= userHobbies.includes('Music') ? 'checked' : '' %>> Music
+                    </label><br>
+                    <label>
+                        <input type="checkbox" name="hobbies" value="Coding" <%= userHobbies.includes('Coding') ? 'checked' : '' %>> Coding
+                    </label><br>
+                    <label>
+                        <input type="checkbox" name="hobbies" value="Sports" <%= userHobbies.includes('Sports') ? 'checked' : '' %>> Sports
+                    </label>
+                </td>
+            </tr>
+
+            <tr>
+                <td><label for="profilePic">Profile Picture (Single file):</label></td>
+                <td>
+                    <input type="file" id="profilePic" name="profilePic" accept="image/*">
+                </td>
+            </tr>
+
+            <tr>
+                <td><label for="otherPics">Other Pictures (Multiple files):</label></td>
+                <td>
+                    <input type="file" id="otherPics" name="otherPics" multiple accept="image/*">
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2" align="center">
+                    <button type="submit" class="btn">Register</button>
+                    &nbsp;
+                    <button type="reset" class="btn">Reset</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</body>
+</html>

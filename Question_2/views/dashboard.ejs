@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Q2 - Protected Route 1: Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; }
+        .nav { margin-bottom: 20px; }
+        .nav a { margin-right: 15px; font-weight: bold; text-decoration: none; color: #0066cc; }
+        table { border-collapse: collapse; width: 550px; }
+        th, td { padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; width: 40%; }
+        .btn-logout { background-color: #d9534f; color: white; padding: 5px 10px; border-radius: 3px; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+    <h2>Protected Route 1: Dashboard</h2>
+
+    <div class="nav">
+        <a href="/dashboard">Dashboard (Protected 1)</a> |
+        <a href="/profile">Profile Details (Protected 2)</a> |
+        <a href="/logout" class="btn-logout">Logout</a>
+    </div>
+
+    <p style="color: green;"><strong>Authentication Status:</strong> Active Session (File-Based Store)</p>
+
+    <table border="1">
+        <tr>
+            <th>Full Name</th>
+            <td><%= user.fullName %></td>
+        </tr>
+        <tr>
+            <th>Username</th>
+            <td><%= user.username %></td>
+        </tr>
+        <tr>
+            <th>Role</th>
+            <td><%= user.role %></td>
+        </tr>
+        <tr>
+            <th>Login Time</th>
+            <td><%= user.loginTime %></td>
+        </tr>
+        <tr>
+            <th>Session ID</th>
+            <td><code><%= sessionId %></code></td>
+        </tr>
+        <tr>
+            <th>Page Refresh/Visit Count</th>
+            <td><%= visitCount %> times</td>
+        </tr>
+    </table>
+
+    <p><small>* Note: Refreshing this page increments the session visit count persisted in the session file on the server.</small></p>
+
+</body>
+</html>
